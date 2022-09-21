@@ -11,25 +11,34 @@ using Reexport
 @reexport using Stipple.ModelStorage.Sessions
 @reexport using Stipple.ReactiveTools
 
-export @devtools
+@reexport using Genie.Renderer.Html
+@reexport using Genie.Server
 
-macro devtools()
-  Genie.Configuration.isdev() || return :(nothing)
+export @genietools
+
+if Genie.Configuration.isdev()
+  @reexport using GenieDevTools
+  @reexport using GenieAutoReload
+  @reexport using GarishPrint
+end
+
+macro genietools()
+  if Genie.Configuration.isprod()
+    return quote
+      Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
+    end |> esc
+  end
 
   quote
-    using GenieDevTools
-    using GenieAutoReload
-
     Genie.Logger.initialize_logging()
-
     GenieDevTools.register_routes()
     Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
-    autoreload(pwd())
-
     @async begin
+      autoreload(pwd())
       sleep(2)
       Genie.Watch.watch()
     end
+    nothing
   end |> esc
 end
 

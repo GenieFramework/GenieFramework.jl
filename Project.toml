@@ -4,6 +4,7 @@ authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
 version = "1.0.0"
 
 [deps]
+GarishPrint = "b0ab02a7-8576-43f7-aa76-eaa7c3897c54"
 Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
 GenieAutoReload = "c6228e60-a24f-11e9-1776-c313472ebacc"
 GenieDevTools = "4e5d9629-6565-4102-a9ff-45c707eb060e"
