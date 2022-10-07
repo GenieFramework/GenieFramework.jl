@@ -1,5 +1,6 @@
 module GenieFramework
 
+using Revise
 using Reexport
 
 @reexport using Genie
