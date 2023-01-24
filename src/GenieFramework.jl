@@ -25,13 +25,13 @@ if Genie.Configuration.isdev()
 end
 
 """
-This macro configures static assets(js, icons, fonts etc) based on production or development mode. 
-  
+This macro configures static assets(js, icons, fonts etc) based on production or development mode.
+
 In production mode, it uses the CDN to load the assets.
 In development mode, it loads the assets from the local file system.
 
-It also register routes from GenieDevTools and GeniePackageManager per app basis which means making available routes from 
-GenieDevTools and GeniePackageManager in your Genie/GenieBuilder app for development purposes. 
+It also register routes from GenieDevTools and GeniePackageManager per app basis which means making available routes from
+GenieDevTools and GeniePackageManager in your Genie/GenieBuilder app for development purposes.
 
 Some example routes are:
 - `/geniepackagemanager`
@@ -44,27 +44,43 @@ Some example routes are:
 which can be accessed from `app_host:app_port/geniepackagemanager` etc.
 """
 macro genietools()
-  if Genie.Configuration.isprod()
-    return quote
-      Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
-    end |> esc
-  end
-
-  quote
-    if Genie.Configuration.isdev()
-      Genie.Logger.initialize_logging()
-      GenieDevTools.register_routes()
-      GeniePackageManager.register_routes()
-      GeniePackageManager.deps_routes()
-      Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
-      @async begin
-        autoreload(pwd())
-        sleep(2)
-        Genie.Watch.watch()
+  return quote
+    function __genietools()
+      if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
+        try
+          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload], host = ENV["BASEPATH"])
+          Genie.config.websockets_base_path = ENV["BASEPATH"]
+          Genie.config.websockets_exposed_port = nothing
+        catch ex
+          @error ex
+        end
       end
+
+      if Genie.Configuration.isprod()
+        try
+          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
+        catch ex
+          @error ex
+        end
+      end
+
+      if Genie.Configuration.isdev()
+        Genie.Logger.initialize_logging()
+        GenieDevTools.register_routes()
+        GeniePackageManager.register_routes()
+        GeniePackageManager.deps_routes()
+        Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
+        @async begin
+          autoreload(pwd())
+          sleep(2)
+          Genie.Watch.watch()
+        end
+      end
+
+      nothing
     end
 
-    nothing
+    __genietools()
   end |> esc
 end
 
