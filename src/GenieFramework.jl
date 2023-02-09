@@ -48,7 +48,7 @@ macro genietools()
     function __genietools()
       if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload], host = ENV["BASEPATH"])
+          Genie.Assets.assets_config!([Genie, GeniePackageManager, Stipple, StippleUI, StipplePlotly, GenieAutoReload], host = ENV["BASEPATH"])
           Genie.config.websockets_base_path = ENV["BASEPATH"]
           Genie.config.websockets_exposed_port = nothing
         catch ex
@@ -58,7 +58,7 @@ macro genietools()
 
       if Genie.Configuration.isprod()
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
+          Genie.Assets.assets_config!([Genie, GeniePackageManager, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
         catch ex
           @error ex
         end
