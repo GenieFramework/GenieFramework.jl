@@ -46,6 +46,9 @@ which can be accessed from `app_host:app_port/geniepackagemanager` etc.
 macro genietools()
   return quote
     function __genietools()
+      Genie.config.log_to_file = true
+      Genie.Logger.initialize_logging()
+
       if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
         try
           Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload], host = ENV["BASEPATH"])
@@ -65,7 +68,6 @@ macro genietools()
       end
 
       if Genie.Configuration.isdev()
-        Genie.Logger.initialize_logging()
         GenieDevTools.register_routes()
         GeniePackageManager.register_routes()
         Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
