@@ -47,6 +47,7 @@ macro genietools()
   return quote
     function __genietools()
       Genie.config.log_to_file = true
+      Genie.config.log_requests = false
       Genie.Logger.initialize_logging()
 
       if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
