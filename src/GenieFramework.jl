@@ -12,6 +12,9 @@ using Reexport
 @reexport using Stipple.ModelStorage.Sessions
 @reexport using Stipple.ReactiveTools
 
+@reexport using StipplePlotly.Charts
+@reexport using StipplePlotly.Layouts
+
 @reexport using Genie.Renderer.Html
 @reexport using Genie.Server
 
