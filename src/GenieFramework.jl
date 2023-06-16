@@ -19,6 +19,7 @@ using Reexport
 @reexport using Genie.Server
 
 export @genietools
+export Stipple.ReactiveTools.DEFAULT_LAYOUT
 
 if Genie.Configuration.isdev()
   @reexport using GenieDevTools
