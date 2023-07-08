@@ -20,13 +20,15 @@ pkg> add GenieFramework
 
 Create a simple `app.jl` script
 ```julia
+module App
+
 using GenieFramework
 @genietools
 
-d₁ = PlotData(x = [1, 2, 3], y = [4, 1, 2], plot = StipplePlotly.Charts.PLOT_TYPE_BAR, name = "Barcelona")
-d₂ = PlotData(x = [1, 2, 3], y = [2, 4, 5], plot = StipplePlotly.Charts.PLOT_TYPE_BAR, name = "London")
+d₁ = PlotData(x=[1, 2, 3], y=[4, 1, 2], plot=StipplePlotly.Charts.PLOT_TYPE_BAR, name="Barcelona")
+d₂ = PlotData(x=[1, 2, 3], y=[2, 4, 5], plot=StipplePlotly.Charts.PLOT_TYPE_BAR, name="London")
 
-@handlers begin
+@app begin
     @out data = [d₁, d₂]
     @out layout = PlotLayout()
 end
@@ -40,11 +42,11 @@ end
 
 @page("/", ui)
 
-Server.isrunning() || Server.up()
+end
 ```
 
 ```shell
-julia> include("app.jl")
+julia> using GenieFramework; Genie.loadapp(); Server.isrunning() || up(async=false);
 ```
 
 should start the app at `localhost:8000`
