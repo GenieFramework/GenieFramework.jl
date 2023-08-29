@@ -18,8 +18,9 @@ using Reexport
 @reexport using Genie.Renderer.Html
 @reexport using Genie.Server
 
+const DEFAULT_LAYOUT = Stipple.ReactiveTools.DEFAULT_LAYOUT
+export DEFAULT_LAYOUT
 export @genietools
-export Stipple.ReactiveTools.DEFAULT_LAYOUT
 
 if Genie.Configuration.isdev()
   @reexport using GenieDevTools
@@ -27,6 +28,12 @@ if Genie.Configuration.isdev()
   @reexport using GarishPrint
   @reexport using GeniePackageManager
 end
+
+# Address conflicts - this is disgusting but necessary
+# TODO: Refactor layout exports in next breaking release (v1)
+# Both Stipple and StippleUI export layout
+const q__layout = StippleUI.Layouts.layout
+export q__layout
 
 """
 This macro configures static assets(js, icons, fonts etc) based on production or development mode.
