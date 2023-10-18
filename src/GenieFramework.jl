@@ -81,12 +81,28 @@ macro genietools()
 
       if Genie.Configuration.isdev()
         GenieDevTools.register_routes()
-        GeniePackageManager.register_routes()
         Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
+
         @async begin
           autoreload(pwd())
           sleep(2)
           Genie.Watch.watch()
+        end
+
+        @async begin
+          sleep(10)
+
+          GenieDevTools.tailapplog(Genie.config.path_log; env = lowercase(ENV["GENIE_ENV"])) do line
+            @show line
+
+            if GenieDevTools.logtype(line) == :error
+              output = replace(line, "└" => "")
+              output = replace(output, "┌" => "")
+              output = replace(output, "`" => '"')
+
+              Genie.WebChannels.broadcast(">eval: alert(`$(output)`)")
+            end
+          end
         end
       end
 
