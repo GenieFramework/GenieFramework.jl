@@ -90,10 +90,7 @@ macro genietools()
         end
 
         @async begin
-          sleep(10)
-
           GenieDevTools.tailapplog(Genie.config.path_log; env = lowercase(ENV["GENIE_ENV"])) do line
-            @show line
 
             if GenieDevTools.logtype(line) == :error
               output = replace(line, "└" => "")
