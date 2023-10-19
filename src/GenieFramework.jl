@@ -91,13 +91,17 @@ macro genietools()
 
         @async begin
           GenieDevTools.tailapplog(Genie.config.path_log; env = lowercase(ENV["GENIE_ENV"])) do line
+            msg = GenieDevTools.parselog(line)
+            msg !== nothing || return
 
-            if GenieDevTools.logtype(line) == :error
-              output = replace(line, "└" => "")
-              output = replace(output, "┌" => "")
-              output = replace(output, "`" => '"')
+            line = replace(line, "└" => "")
+            line = replace(line, "┌" => "")
+            line = replace(line, "`" => '"')
 
-              Genie.WebChannels.broadcast(">eval: alert(`$(output)`)")
+            try
+              Genie.WebChannels.broadcast(""">eval: window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})""")
+            catch ex
+              @error ex
             end
           end
         end
