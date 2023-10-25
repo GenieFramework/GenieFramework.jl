@@ -87,23 +87,25 @@ macro genietools()
           autoreload(pwd())
           sleep(2)
           Genie.Watch.watch()
-        end
+        end |> errormonitor
 
-        @async begin
-          GenieDevTools.tailapplog(Genie.config.path_log; env = lowercase(ENV["GENIE_ENV"])) do line
-            msg = GenieDevTools.parselog(line)
-            msg !== nothing || return
+        if ! haskey(ENV, "GENIE_PUSH_ERRORS") || ENV["GENIE_PUSH_ERRORS"] !== "false"
+          @async begin
+            GenieDevTools.tailapplog(Genie.config.path_log; env = lowercase(ENV["GENIE_ENV"])) do line
+              msg = GenieDevTools.parselog(line)
+              msg !== nothing || return
 
-            line = replace(line, "└" => "")
-            line = replace(line, "┌" => "")
-            line = replace(line, "`" => '"')
+              line = replace(line, "└" => "")
+              line = replace(line, "┌" => "")
+              line = replace(line, "`" => '"')
 
-            try
-              Genie.WebChannels.broadcast(""">eval: window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})""")
-            catch ex
-              @error ex
+              try
+                Genie.WebChannels.broadcast(""">eval: window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})""")
+              catch ex
+                @error ex
+              end
             end
-          end
+          end |> errormonitor
         end
       end
 
