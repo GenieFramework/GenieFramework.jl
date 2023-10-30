@@ -56,6 +56,11 @@ which can be accessed from `app_host:app_port/geniepackagemanager` etc.
 """
 macro genietools()
   return quote
+    Genie.Loader.bootstrap(@__MODULE__)
+    Stipple.__init__()
+    StippleUI.__init__()
+    StipplePlotly.__init__()
+
     function __genietools()
       Genie.config.log_to_file = true
       Genie.config.log_requests = false
@@ -100,7 +105,7 @@ macro genietools()
               line = replace(line, "`" => '"')
 
               try
-                Genie.WebChannels.broadcast(""">eval: window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})""")
+                Stipple.WEB_TRANSPORT[].broadcast(""">eval: window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})""")
               catch ex
                 @error ex
               end
