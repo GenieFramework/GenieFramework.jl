@@ -1,10 +1,9 @@
 name = "GenieFramework"
 uuid = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
-version = "1.25.0"
+version = "1.26.0"
 
 [deps]
-Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 GarishPrint = "b0ab02a7-8576-43f7-aa76-eaa7c3897c54"
 Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
 GenieAutoReload = "c6228e60-a24f-11e9-1776-c313472ebacc"
@@ -18,15 +17,15 @@ StippleUI = "a3c5d34a-b254-4859-a8fa-b86abb7e84a3"
 
 [compat]
 GarishPrint = "0.5"
-Genie = "5.18.0"
+Genie = "5.21.0"
 GenieAutoReload = "2"
 GenieDevTools = "2.6"
 GeniePackageManager = "0.12, 1"
 Reexport = "1"
 Revise = "3"
-Stipple = "0.27.8"
-StipplePlotly = "0.13"
-StippleUI = "0.22"
+Stipple = "0.27.13"
+StipplePlotly = "0.13.11"
+StippleUI = "0.22.8"
 julia = "1.6"
 
 [extras]
