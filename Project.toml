@@ -16,6 +16,7 @@ StipplePlotly = "ec984513-233d-481d-95b0-a3b58b97af2b"
 StippleUI = "a3c5d34a-b254-4859-a8fa-b86abb7e84a3"
 
 [compat]
+Base64 = "1.6"
 GarishPrint = "0.5"
 Genie = "5.21.0"
 GenieAutoReload = "2"
