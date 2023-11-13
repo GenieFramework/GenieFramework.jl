@@ -100,10 +100,6 @@ macro genietools()
               msg = GenieDevTools.parselog(line)
               msg !== nothing || return
 
-              line = replace(line, "└" => "")
-              line = replace(line, "┌" => "")
-              line = replace(line, "`" => '"')
-
               try
                 msg = """$(Genie.config.webchannels_eval_command) window.GENIEMODEL.\$q.notify({timeout: 0, message: `$(line)`, color: "red", closeBtn: true})"""
                 Stipple.WEB_TRANSPORT[].broadcast(Genie.WebChannels.tagbase64encode(msg))
