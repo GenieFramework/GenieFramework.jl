@@ -86,6 +86,7 @@ macro genietools()
 
       if Genie.Configuration.isdev()
         GenieDevTools.register_routes()
+        GeniePackageManager.register_routes()
         Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
 
         @async begin
