@@ -56,11 +56,6 @@ which can be accessed from `app_host:app_port/geniepackagemanager` etc.
 """
 macro genietools()
   return quote
-    Genie.Loader.bootstrap(@__MODULE__; show_banner = false)
-    Stipple.__init__()
-    StippleUI.__init__()
-    StipplePlotly.__init__()
-
     function __genietools()
       Genie.config.log_to_file = true
       Genie.config.log_requests = false
@@ -115,7 +110,19 @@ macro genietools()
       nothing
     end
 
-    __genietools()
+    if ! isdefined(Main, :GENIE_TOOLS_LOADED)
+      const GENIE_TOOLS_LOADED = true
+      @info "Loading GenieTools"
+
+      Genie.Loader.bootstrap(@__MODULE__; show_banner = false)
+      Stipple.__init__()
+      StippleUI.__init__()
+      StipplePlotly.__init__()
+
+      __genietools()
+    else
+      @warn "GenieTools already loaded, skipping"
+    end
   end |> esc
 end
 
