@@ -84,11 +84,7 @@ macro genietools()
         GeniePackageManager.register_routes()
         Stipple.deps!(GenieAutoReload, GenieAutoReload.deps)
 
-        @async begin
-          autoreload(pwd())
-          sleep(2)
-          Genie.Watch.watch()
-        end |> errormonitor
+        @async autoreload(pwd()) |> errormonitor
 
         if ! haskey(ENV, "GENIE_PUSH_ERRORS") || ENV["GENIE_PUSH_ERRORS"] !== "false"
           @async begin
@@ -110,7 +106,7 @@ macro genietools()
       nothing
     end
 
-    if ! isdefined(Main, :GENIE_TOOLS_LOADED)
+    if ! isdefined($__module__, :GENIE_TOOLS_LOADED)
       const GENIE_TOOLS_LOADED = true
       @info "Loading GenieTools"
 
