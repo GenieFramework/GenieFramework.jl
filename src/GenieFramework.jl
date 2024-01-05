@@ -108,7 +108,7 @@ macro genietools()
 
     if ! isdefined($__module__, :GENIE_TOOLS_LOADED)
       const GENIE_TOOLS_LOADED = true
-      @info "Loading GenieTools"
+      @debug "Loading GenieTools"
 
       Genie.Loader.bootstrap(@__MODULE__; show_banner = false)
       Stipple.__init__()
