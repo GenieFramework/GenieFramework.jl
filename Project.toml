@@ -25,7 +25,7 @@ Reexport = "1"
 Revise = "3"
 Stipple = "0.27.28"
 StipplePlotly = "0.13.11"
-StippleUI = "0.22.14"
+StippleUI = "0.22.15"
 julia = "1.6"
 
 [extras]
