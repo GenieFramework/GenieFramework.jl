@@ -9,7 +9,6 @@ using Reexport
 @reexport using StipplePlotly
 
 @reexport using Stipple.Pages
-@reexport using Stipple.ModelStorage.Sessions
 @reexport using Stipple.ReactiveTools
 
 @reexport using StipplePlotly.Charts
