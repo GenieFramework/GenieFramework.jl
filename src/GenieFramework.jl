@@ -28,7 +28,7 @@ if Genie.Configuration.isdev()
   @reexport using GeniePackageManager
 end
 
-# Address conflicts - this is disgusting but necessary
+# Address conflicts - this is ugly but necessary
 # TODO: Refactor layout exports in next breaking release (v1)
 # Both Stipple and StippleUI export layout
 const q__layout = StippleUI.Layouts.layout
@@ -70,9 +70,9 @@ macro genietools()
         end
       end
 
-      if Genie.Configuration.isprod()
+      if Genie.Configuration.isprod() && Genie.config.cdn_enabled
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = "https://cdn.statically.io/gh/GenieFramework")
+          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = Genie.config.cdn_url)
         catch ex
           @error ex
         end
