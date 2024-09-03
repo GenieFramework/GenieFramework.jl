@@ -1,7 +1,7 @@
 name = "GenieFramework"
 uuid = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
-version = "2.2.0"
+version = "2.3.0"
 
 [deps]
 GarishPrint = "b0ab02a7-8576-43f7-aa76-eaa7c3897c54"
@@ -23,9 +23,9 @@ GenieDevTools = "2.10.0"
 GeniePackageManager = "1.1.0"
 Reexport = "1"
 Revise = "3"
-Stipple = "0.28.13"
+Stipple = "0.28.14"
 StipplePlotly = "0.13.11"
-StippleUI = "0.23.0"
+StippleUI = "0.23.4"
 julia = "1.6"
 
 [extras]
