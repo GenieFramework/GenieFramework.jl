@@ -7,6 +7,8 @@ using Reexport
 @reexport using Stipple
 @reexport using StippleUI
 @reexport using StipplePlotly
+@reexport using StippleTable
+@reexport using StippleTabs
 
 @reexport using Stipple.Pages
 @reexport using Stipple.ReactiveTools
@@ -62,7 +64,7 @@ macro genietools()
 
       if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload], host = ENV["BASEPATH"])
+          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload, StippleTable, StippleTabs], host = ENV["BASEPATH"])
           Genie.config.websockets_base_path = ENV["BASEPATH"]
           Genie.config.websockets_exposed_port = nothing
         catch ex
