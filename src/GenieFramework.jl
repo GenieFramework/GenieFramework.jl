@@ -9,6 +9,7 @@ using Reexport
 @reexport using StipplePlotly
 @reexport using StippleTable
 @reexport using StippleTabs
+@reexport using StipplePivotTable
 
 @reexport using Stipple.Pages
 @reexport using Stipple.ReactiveTools
@@ -19,6 +20,7 @@ using Reexport
 @reexport using Genie.Renderer.Html
 @reexport using Genie.Server
 
+const PLUGINS_WITH_ASSETS = [Stipple, StippleUI, StipplePlotly, StippleTable, StippleTabs, StipplePivotTable]
 const DEFAULT_LAYOUT = Stipple.ReactiveTools.DEFAULT_LAYOUT
 export DEFAULT_LAYOUT
 export @genietools
@@ -64,7 +66,7 @@ macro genietools()
 
       if haskey(ENV, "BASEPATH") && ! isempty(ENV["BASEPATH"])
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly, GenieAutoReload, StippleTable, StippleTabs], host = ENV["BASEPATH"])
+          Genie.Assets.assets_config!([Genie, PLUGINS_WITH_ASSETS..., GenieAutoReload], host = ENV["BASEPATH"])
           Genie.config.websockets_base_path = ENV["BASEPATH"]
           Genie.config.websockets_exposed_port = nothing
         catch ex
@@ -74,7 +76,7 @@ macro genietools()
 
       if Genie.Configuration.isprod() && Genie.config.cdn_enabled
         try
-          Genie.Assets.assets_config!([Genie, Stipple, StippleUI, StipplePlotly], host = Genie.config.cdn_url)
+          Genie.Assets.assets_config!([Genie, PLUGINS_WITH_ASSETS...], host = Genie.config.cdn_url)
         catch ex
           @error ex
         end
@@ -112,13 +114,12 @@ macro genietools()
       @debug "Loading GenieTools"
 
       Genie.Loader.bootstrap(@__MODULE__; show_banner = false)
-      Stipple.__init__()
-      StippleUI.__init__()
-      StipplePlotly.__init__()
+
+      for plugin in GenieFramework.PLUGINS_WITH_ASSETS
+        plugin.__init__()
+      end
 
       __genietools()
-    else
-      @warn "GenieTools already loaded, skipping"
     end
   end |> esc
 end

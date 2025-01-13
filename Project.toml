@@ -1,7 +1,7 @@
 name = "GenieFramework"
 uuid = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
-version = "2.7"
+version = "2.8.0"
 
 [deps]
 GarishPrint = "b0ab02a7-8576-43f7-aa76-eaa7c3897c54"
@@ -12,24 +12,26 @@ GeniePackageManager = "3bdcc7f3-4b7d-42a1-be8e-724ecf5e3574"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 Stipple = "4acbeb90-81a0-11ea-1966-bdaff8155998"
+StipplePivotTable = "adab0226-ee3c-44de-8f2f-393b1bf1e936"
 StipplePlotly = "ec984513-233d-481d-95b0-a3b58b97af2b"
 StippleTable = "5bb4b094-0818-496d-ae94-fd777e10e8ba"
 StippleTabs = "29f11006-3202-4091-a17b-0a26282d76dd"
 StippleUI = "a3c5d34a-b254-4859-a8fa-b86abb7e84a3"
 
 [compat]
-GarishPrint = "0.5.1"
+GarishPrint = "0.5"
 Genie = "5.31"
-GenieAutoReload = "2.2.3"
+GenieAutoReload = "2.2.5"
 GenieDevTools = "2.12"
 GeniePackageManager = "1.1"
 Reexport = "1"
 Revise = "3"
-Stipple = "0.28.20"
+Stipple = "0.28.22"
+StipplePivotTable = "0.3.0"
 StipplePlotly = "0.13.16"
 StippleTable = "1"
 StippleTabs = "1"
-StippleUI = "0.23.4"
+StippleUI = "0.23.5"
 julia = "1.6"
 
 [extras]
