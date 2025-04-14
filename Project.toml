@@ -31,7 +31,7 @@ StipplePivotTable = "0.4"
 StipplePlotly = "0.13.16"
 StippleTable = "1"
 StippleTabs = "1"
-StippleUI = "0.23.6"
+StippleUI = "0.23.7"
 julia = "1.6"
 
 [extras]
