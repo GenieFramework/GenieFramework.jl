@@ -1,7 +1,7 @@
 name = "GenieFramework"
 uuid = "a59fdf5c-6bf0-4f5d-949c-a137c9e2f353"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
-version = "2.9.1"
+version = "2.10.0"
 
 [deps]
 GarishPrint = "b0ab02a7-8576-43f7-aa76-eaa7c3897c54"
@@ -30,7 +30,7 @@ Stipple = "0.28.23"
 StipplePivotTable = "0.4"
 StipplePlotly = "0.13.16"
 StippleTable = "1"
-StippleTabs = "1"
+StippleTabs = "1.1"
 StippleUI = "0.23.7"
 julia = "1.6"
 
